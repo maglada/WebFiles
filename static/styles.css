@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+}
+
+.explorer {
+    flex: 1;
+}
+
+.preview {
+    flex: 1;
+    margin-left: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.folder {
+    font-weight: bold;
+}
+
+#upload-form, #create-file {
+    margin-top: 20px;
+}
+
+#preview-content {
+    max-width: 100%;
+}
+
+#new-filename, #new-file-content {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#new-file-content {
+    height: 100px;
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Explorer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="explorer">
+        <h1>File Explorer</h1>
+        <p>Current Path: <span id="current-path">{{ current_path or 'Home' }}</span></p>
+        <ul id="file-list">
+            {% if current_path %}
+            <li><a href="{{ url_for('explore', subpath='/'.join(current_path.split('/')[:-1])) }}">..</a></li>
+            {% endif %}
+            {% for file in files %}
+            <li>
+                {% if file.is_dir %}
+                <span class="folder">📁</span>
+                <a href="{{ url_for('explore', subpath=(current_path + '/' + file.name).strip('/')) }}">{{ file.name }}</a>
+                {% else %}
+                <span>📄</span>
+                <a href="#" class="file-link" data-path="{{ (current_path + '/' + file.name).strip('/') }}">{{ file.name }}</a>
+                {% if file.size is not none %}
+                ({{ file.size }} bytes)
+                {% endif %}
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        <form id="upload-form" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button type="submit">Upload File</button>
+        </form>
+        <div id="create-file">
+            <h3>Create New File</h3>
+            <input type="text" id="new-filename" placeholder="Enter filename">
+            <textarea id="new-file-content" placeholder="Enter file content"></textarea>
+            <button id="create-file-btn">Create File</button>
+        </div>
+    </div>
+    <div class="preview">
+        <h2>File Preview</h2>
+        <div id="preview-content"></div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
